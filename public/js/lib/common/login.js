@@ -19,10 +19,12 @@ export function resetCheckAuth () {
 
 export function setLoginState (bool, id) {
   Cookies.set('loginstate', bool, {
+    sameSite: 'strict',
     expires: 365
   })
   if (id) {
     Cookies.set('userid', id, {
+      sameSite: 'strict',
       expires: 365
     })
   } else {

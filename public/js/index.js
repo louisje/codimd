@@ -1600,6 +1600,7 @@ function toggleNightMode () {
     store.set('nightMode', !isActive)
   } else {
     Cookies.set('nightMode', !isActive, {
+      sameSite: 'strict',
       expires: 365
     })
   }

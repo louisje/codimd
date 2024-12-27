@@ -25,6 +25,7 @@ $('select.ui-locale option[value="' + lang + '"]').attr('selected', 'selected')
 
 locale.change(function () {
   Cookies.set('locale', $(this).val(), {
+    sameSite: 'strict',
     expires: 365
   })
   window.location.reload()

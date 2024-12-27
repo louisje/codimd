@@ -450,11 +450,13 @@ export default class Editor {
     const setType = () => {
       if (this.editor.getOption('indentWithTabs')) {
         Cookies.set('indent_type', 'tab', {
+          sameSite: 'strict',
           expires: 365
         })
         type.text('Tab Size:')
       } else {
         Cookies.set('indent_type', 'space', {
+          sameSite: 'strict',
           expires: 365
         })
         type.text('Spaces:')
@@ -466,10 +468,12 @@ export default class Editor {
       var unit = this.editor.getOption('indentUnit')
       if (this.editor.getOption('indentWithTabs')) {
         Cookies.set('tab_size', unit, {
+          sameSite: 'strict',
           expires: 365
         })
       } else {
         Cookies.set('space_units', unit, {
+          sameSite: 'strict',
           expires: 365
         })
       }
@@ -538,6 +542,7 @@ export default class Editor {
     const setKeymapLabel = () => {
       var keymap = this.editor.getOption('keyMap')
       Cookies.set('keymap', keymap, {
+        sameSite: 'strict',
         expires: 365
       })
       label.text(keymap)
@@ -573,6 +578,7 @@ export default class Editor {
     const setTheme = theme => {
       this.editor.setOption('theme', theme)
       Cookies.set('theme', theme, {
+        sameSite: 'strict',
         expires: 365
       })
       this.statusIndicators.find('.status-theme li').removeClass('active')
@@ -675,6 +681,7 @@ export default class Editor {
         spellcheckToggle.removeClass('active')
 
         Cookies.set('spellcheck', false, {
+          sameSite: 'strict',
           expires: 365
         })
 
@@ -683,6 +690,7 @@ export default class Editor {
         spellcheckToggle.addClass('active')
 
         Cookies.set('spellcheck', lang, {
+          sameSite: 'strict',
           expires: 365
         })
 
@@ -704,6 +712,7 @@ export default class Editor {
         this.editor.setOption('gutters', [lintGutter, ...gutters])
       }
       Cookies.set('linter', true, {
+        sameSite: 'strict',
         expires: 365
       })
     } else {
@@ -753,6 +762,7 @@ export default class Editor {
     )
     if (overrideBrowserKeymap.is(':checked')) {
       Cookies.set('preferences-override-browser-keymap', true, {
+        sameSite: 'strict',
         expires: 365
       })
       this.restoreOverrideEditorKeymap()
