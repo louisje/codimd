@@ -1601,6 +1601,7 @@ function toggleNightMode () {
   } else {
     Cookies.set('nightMode', !isActive, {
       sameSite: 'strict',
+      secure: true,
       expires: 365
     })
   }
