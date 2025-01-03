@@ -4,20 +4,32 @@ services:
     image: postgres:11.6-alpine
     environment:
       - POSTGRES_USER=codimd
-      - POSTGRES_PASSWORD=change_password
+      - POSTGRES_PASSWORD=codimd
       - POSTGRES_DB=codimd
     volumes:
       - "database-data:/var/lib/postgresql/data"
     restart: always
+    logging:
+      driver: "k8s-file"
+      options:
+        max-size: 100m
   codimd:
     # you can use image or custom build below,
-    image: nabo.codimd.dev/hackmdio/hackmd:2.5.3
+    image: localhost/hackmdio/hackmd:latest
     # build:
     #   context: ..
     #   dockerfile: ./deployments/Dockerfile
     environment:
-      - CMD_DB_URL=postgres://codimd:change_password@database/codimd
+      - CMD_DB_URL=postgres://codimd:codimd@database/codimd
       - CMD_USECDN=false
+      - CMD_PROTOCOL_USESSL=true
+      - CMD_DOMAIN=192.168.1.46
+      - CMD_HOST=0.0.0.0
+      - CMD_PORT=3000
+      - CMD_URL_ADDPORT=false
+      - CMD_HSTS_ENABLE=false
+      - CMD_CSP_ENABLE=false
+      - NODE_ENV=development
     depends_on:
       - database
     ports:
@@ -25,6 +37,10 @@ services:
     volumes:
       - upload-data:/home/hackmd/app/public/uploads
     restart: always
+    logging:
+      driver: "k8s-file"
+      options:
+        max-size: 100m
 volumes:
   database-data: {}
   upload-data: {}

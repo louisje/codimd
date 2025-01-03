@@ -93,7 +93,7 @@ var sessionStore = new SequelizeStore({
 if (config.hsts.enable) {
   app.use(helmet.hsts({
     maxAge: config.hsts.maxAgeSeconds,
-    includeSubdomains: config.hsts.includeSubdomains,
+    includeSubDomains: config.hsts.includeSubDomains,
     preload: config.hsts.preload
   }))
 } else if (config.useSSL) {
@@ -147,6 +147,7 @@ app.use(session({
   resave: false, // don't save session if unmodified
   saveUninitialized: true, // always create session to ensure the origin
   rolling: true, // reset maxAge on every response
+  proxy: true,
   cookie: {
     httpOnly: true,
     sameSite: true,
@@ -155,6 +156,8 @@ app.use(session({
   },
   store: sessionStore
 }))
+
+app.set('trust proxy', true)
 
 // session resumption
 var tlsSessionStore = {}

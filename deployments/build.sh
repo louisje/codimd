@@ -14,7 +14,7 @@ GIT_SHA1="$(git rev-parse HEAD)"
 GIT_SHORT_ID="${GIT_SHA1:0:8}"
 GIT_TAG=$(git describe --exact-match --tags $(git log -n1 --pretty='%h') 2>/dev/null || echo "")
 
-DOCKER_TAG="${GIT_TAG:-$GIT_SHORT_ID}"
+DOCKER_TAG="latest"
 
 docker build --build-arg RUNTIME=$1 --build-arg BUILDPACK=$2 -t "hackmdio/hackmd:$DOCKER_TAG" -f "$CURRENT_DIR/Dockerfile" "$CURRENT_DIR/.."
 
